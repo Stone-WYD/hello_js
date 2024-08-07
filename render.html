@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<!-- 
+    以下例子实现了数据的绑定，原理如下：
+    1. 保存绑定的 div 下的所有内容
+    2. 每次要更新内容时，获取一份 div 内容副本
+    3. 副本替换要更新的变量
+    4. 使用副本替换 div 下的内容
+-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据渲染示例</title>
+</head>
+<body>
+    <div id="app">
+        <p>姓名：{{name}}</p>
+        <p>年龄：{{age}}</p>
+        <button onclick="changeOnclick()" id="myButton">变更内容</button>
+        <button onclick="partChangeOnclick()" id="myButton">变更部分内容</button>
+    </div>
+    
+    <script src="util/reRender.js"></script>
+    <script>
+        changeInfo({
+            name: '张三',
+            age: 30
+        });
+        
+        // 定义一个按钮对应的函数
+        function changeOnclick() {
+            var result = {};
+            result['name'] = 'wyd' + Math.random();
+            result['age'] = Math.random();
+            changeInfo(result);
+        }
+
+        function partChangeOnclick() {
+            var result = {};
+            result['name'] = 'yxy' + Math.random();
+            changeInfo(result);
+        }
+        
+        // 当文档加载完成时绑定按钮点击事件
+        document.addEventListener(function() {
+            var button = document.getElementById('myButton');
+            button.addEventListener('click', changeOnclick);
+        });
+        
+    </script>
+</body>
+
+
+</html>

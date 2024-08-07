@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>响应式数据示例</title>
+</head>
+<body>
+    <div id="app">
+        <p>姓名：{{name}}</p>
+        <p>年龄：{{age}}</p>
+        <button onclick="changeOnclick()" id="myButton">变更内容</button>
+        <button onclick="partChangeOnclick()" id="myButton">变更部分内容</button>
+    </div>
+    
+    <script src="util/reRender.js"></script>
+    <script src="util/ref.js"></script>
+    <script>
+        let target = {
+            name: '张三',
+            age: 30
+        };
+        changeInfo(target);
+
+        let proxy = ref(target);
+
+        
+        // 定义一个按钮对应的函数
+        function changeOnclick() {
+            proxy.name = 'wyd' + Math.random();
+            proxy.age = Math.random();        
+        }
+
+        function partChangeOnclick() {
+            proxy.name = 'yxy' + Math.random();
+        }
+        
+        // 当文档加载完成时绑定按钮点击事件
+        document.addEventListener(function() {
+            var button = document.getElementById('myButton');
+            button.addEventListener('click', changeOnclick);
+        });
+        
+    </script>
+</body>
+
+
+</html>
